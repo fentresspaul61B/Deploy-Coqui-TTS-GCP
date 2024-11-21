@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 # Copy the application code into the container
 COPY main.py .
-COPY helpers .
+COPY helpers ./helpers
 
 # Expose port 8080
 EXPOSE 8080
