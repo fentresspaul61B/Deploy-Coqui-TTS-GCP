@@ -35,24 +35,6 @@ def text_to_speech(
     return file_path
 
 
-def text_to_speech_stream(
-        text: str, 
-        speaker_wav: str = speaker_wav, 
-        model=tts,
-        file_path: str = "output.wav") -> str:
-    """Takes in a string, generates an audio wav, returns wav filepath"""
-    s = time.time()
-    model.tts_to_file(
-        text=text,
-        speaker_wav=speaker_wav,
-        language="en",
-        file_path=file_path
-    )
-    e = time.time()
-    print(e - s)
-    return file_path
-
-
 # Issue I am running into: Needs to load a new model for every inference,
 # but this is slow need to figure out how to only load model once?
 # https://coqui-tts.readthedocs.io/en/latest/models/xtts.html#id5
