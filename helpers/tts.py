@@ -14,7 +14,7 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 e = time.time()
 print(e - s)
 
-speaker_wav = "HO_03_female0_en.wav"
+speaker_wav = "helpers/HO_03_female0_en.wav"
 
 
 def text_to_speech(
@@ -59,7 +59,7 @@ def text_to_speech_stream(
 
 # Lets just start with creating audio files, then move to streaming.
 
-# Maybe I should just store the data directly into the cloud, and return a 
+# Maybe I should just store the data directly into the cloud, and return a
 # bucket address?
 
 

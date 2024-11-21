@@ -192,7 +192,7 @@ Here is the issue that suggests to use a forked version:
 https://github.com/coqui-ai/TTS/issues/4029
 
 In order to install the forked version, I just used:
-
+https://github.com/idiap/coqui-ai-TTS
 ```bash
 
 pip install coqui-tts
