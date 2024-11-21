@@ -20,7 +20,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the application code into the container
-COPY tts.py .
 COPY helpers .
 
 # Expose port 8080
