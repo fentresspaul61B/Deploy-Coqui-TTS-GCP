@@ -13,7 +13,7 @@ print(device)
 s = time.time()
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 e = time.time()
-print(e - s)
+print(f"Time to load model in memory: {e - s}")
 
 speaker_wav = "helpers/HO_03_female0_en.wav"
 
@@ -32,7 +32,7 @@ def text_to_speech(
         file_path=file_path
     )
     e = time.time()
-    print(e - s)
+    print(f"Time for inference: {e - s}")
     return file_path
 
 
