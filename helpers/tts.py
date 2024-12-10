@@ -7,6 +7,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # List available 🐸TTS models
 # print(TTS().list_models())
+print(device)
 
 # Init TTS
 s = time.time()
@@ -19,7 +20,7 @@ speaker_wav = "helpers/HO_03_female0_en.wav"
 
 def text_to_speech(
         text: str, 
-        speaker_wav: str = speaker_wav, 
+        speaker_wav: str = speaker_wav,
         model=tts,
         file_path: str = "output.wav") -> str:
     """Takes in a string, generates an audio wav, returns wav filepath"""
