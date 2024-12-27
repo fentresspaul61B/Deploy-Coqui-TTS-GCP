@@ -7,14 +7,13 @@
 4. Navigate to GCP console, and search for "Cloud Run"
 5. Find the recently deployed API and select it. 
 6. Copy and past the URL
-7. Paste the URL into postman
+7. Paste the URL into postman, and add the "/synthesize", as this is the name of the post method we want to use. 
 8. Select "Auth" in Postman, and change the type to "Bearer Token"
 9. Go back to GCP, and find the cloud terminal which is located in the top right corner, called "activate cloud shell" and click it. 
 10. Next run this command in the cloud terminal: ```gcloud auth print-identity-token``` and select to authorize. A token should be printed out. Copy the token. 
 11. Go back to Postman, and paste the token into the token text box under the Bearer Token tab.
-12. Next go to the "Body" tab in postman. 
-13. Select the option for "Form Data", and make sure it is set to "text"
-14. 
+12. Params and add a param named "text" and "dest" under the option for keys. 
+14. Then add the text you would like to write, as well as the name for the audio file, which I named "output.wav". 
 
 How to deploy a Coqui open source TTS model on GCP
 
