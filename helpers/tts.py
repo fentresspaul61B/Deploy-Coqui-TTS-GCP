@@ -2,9 +2,12 @@ import torch
 from TTS.api import TTS
 import time
 import sys
+import os
 
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
+LOCAL_PATH = "~/.local/share/tts/tts_models/multilingual/multi-dataset/xtts_v2/"
 
 # List available 🐸TTS models
 # print(TTS().list_models())
@@ -12,7 +15,9 @@ print(device)
 
 # Init TTS
 s = time.time()
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+# tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+cache_dir = os.path.expanduser(LOCAL_PATH)
+tts = TTS(model_path=cache_dir)
 e = time.time()
 size_in_bytes = sys.getsizeof(tts)
 print(f"Time to load model in memory: {e - s}")
