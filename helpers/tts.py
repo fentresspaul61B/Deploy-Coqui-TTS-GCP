@@ -22,7 +22,8 @@ print(device)
 s = time.time()
 if os.path.isdir(LOCAL_PATH_DOCKER):
     print("Model directory found, loading from local path.")
-    tts = TTS(model_path=LOCAL_PATH_DOCKER).to(device)
+    # tts = TTS(model_path=LOCAL_PATH_DOCKER).to(device)
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 else:
     print("Local model directory not found, downloading model at runtime.")
     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
