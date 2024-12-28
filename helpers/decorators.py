@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Callable, List, Any
 import inspect
 from dataclasses import dataclass
+import torch
 
 
 @dataclass(frozen=True)
@@ -16,6 +17,7 @@ class FunctionCallSummary:
     input_types: List[str]
     output_type: str
     duration: float
+    device: str
 
 
 def print_summary(summary: FunctionCallSummary) -> None:
@@ -28,6 +30,7 @@ def print_summary(summary: FunctionCallSummary) -> None:
     print("Input Data Types:", summary.input_types)
     print("Output Data Type:", summary.output_type)
     print(f"Execution Time: {summary.duration}")
+    print(f"Device: {summary.device}")
     print("--------------------------------------------------------------")
 
 
@@ -37,6 +40,10 @@ def get_source_file():
     outer_frames = inspect.getouterframes(frame)
     file_path = outer_frames[1].filename
     return file_path
+
+
+def get_device():
+    return "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def get_input_types(args, kwargs) -> list:
@@ -69,7 +76,8 @@ def log_data(func: Callable) -> Callable:
             input_kwargs=kwargs,
             input_types=get_input_types(args, kwargs),
             output_type=type(result).__name__,
-            duration=duration
+            duration=duration,
+            device=get_device()
         )
         print_summary(summary)
         return result
