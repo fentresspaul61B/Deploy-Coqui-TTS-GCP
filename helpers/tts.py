@@ -20,27 +20,13 @@ print(device)
 
 # Init TTS
 s = time.time()
-# cache_dir = os.path.expanduser(LOCAL_PATH_DOCKER)
-# if os.path.isdir(LOCAL_PATH_DOCKER):
-#     print("Model file exists")
-#     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
-# else:
-#     print("CANNOT FIND MODEL FILE")
-#     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 if os.path.isdir(LOCAL_PATH_DOCKER):
-    # Model is already downloaded, use local path
     print("Model directory found, loading from local path.")
     tts = TTS(model_path=LOCAL_PATH_DOCKER).to(device)
 else:
-    # Fallback: use the friendly name (which may trigger a download)
     print("Local model directory not found, downloading model at runtime.")
     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-# tts = TTS(LOCAL_PATH_DOCKER)
-# tts = TTS(
-#     checkpoint_path="/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/model.pth",
-#     config_path="/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/config.json",
-#     gpu=USE_GPU
-# )
+
 e = time.time()
 size_in_bytes = sys.getsizeof(tts)
 print(f"Time to load model in memory: {e - s}")
