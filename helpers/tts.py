@@ -3,6 +3,7 @@ from TTS.api import TTS
 import time
 import sys
 import os
+from decorators import log_data
 
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -21,11 +22,19 @@ print(device)
 # Init TTS
 s = time.time()
 # cache_dir = os.path.expanduser(LOCAL_PATH_DOCKER)
+# if os.path.isdir(LOCAL_PATH_DOCKER):
+#     print("Model file exists")
+#     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+# else:
+#     print("CANNOT FIND MODEL FILE")
+#     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 if os.path.isdir(LOCAL_PATH_DOCKER):
-    print("Model file exists")
-    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+    # Model is already downloaded, use local path
+    print("Model directory found, loading from local path.")
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 else:
-    print("CANNOT FIND MODEL FILE")
+    # Fallback: use the friendly name (which may trigger a download)
+    print("Local model directory not found, downloading model at runtime.")
     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 # tts = TTS(LOCAL_PATH_DOCKER)
 # tts = TTS(
@@ -42,6 +51,7 @@ print(f"TTS size in bytes: {size_in_bytes}")
 speaker_wav = "helpers/HO_03_female0_en.wav"
 
 
+@log_data
 def text_to_speech(
         text: str, 
         speaker_wav: str = speaker_wav,
@@ -49,8 +59,6 @@ def text_to_speech(
         file_path: str = "output.wav") -> str:
     """Takes in a string, generates an audio wav, returns wav filepath"""
     s = time.time()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"My device is: {device}")
     model.tts_to_file(
         text=text,
         speaker_wav=speaker_wav,
