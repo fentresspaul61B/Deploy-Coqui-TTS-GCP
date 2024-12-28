@@ -20,13 +20,13 @@ print(device)
 
 # Init TTS
 s = time.time()
-# tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
 # cache_dir = os.path.expanduser(LOCAL_PATH_DOCKER)
 if os.path.isdir(LOCAL_PATH_DOCKER):
     print("Model file exists")
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
 else:
     print("CANNOT FIND MODEL FILE")
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 # tts = TTS(LOCAL_PATH_DOCKER)
 # tts = TTS(
 #     checkpoint_path="/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/model.pth",
