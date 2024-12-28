@@ -215,3 +215,40 @@ pip install coqui-tts
 
 pip install TTS # NO LONGER MAINTAINED
 ```
+
+# Tips (Things I had to do to get this working)
+I wanted to try to reduce the cold start times, by loading the model during the docker deployment, instead of re downloading it at runtime. This can be resolved
+by just adding a line in the docker file to download the model using a python command like so: 
+
+```Bash
+RUN python -c "from TTS.api import TTS; TTS('tts_models/multilingual/multi-dataset/xtts_v2')"
+```
+
+But the issue I ran into, is that after deploying the API, it would fail because the model file could not be found in the file structure. This is because I was unsure, so I used the default file path for a docker environment based on the docs: https://coqui-tts.readthedocs.io/en/latest/faq.html 
+
+So to resolve this, I wanted to look at the file structure of the docker container, to be able to locate the model. 
+
+```bash
+# Starting the docker container locally
+docker build -t coqui-api . 
+
+# Entering the docker container in interactive mode
+docker run -it --entrypoint /bin/bash coqui-api  
+```
+
+This allows you to use linux commands to explore the files within the docker container. 
+
+After entering the container, I went to the root, and then did a search command like so: 
+
+```bash
+ls ..
+
+find . -iname "*xtts_v2*" 2>/dev/null
+```
+
+This was able to locate a model file being stored at:
+```bash
+./root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2
+```
+
+Great, now I just need to update where the code searches for the existing file in memory, when running the API. 

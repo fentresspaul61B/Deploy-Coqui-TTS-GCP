@@ -7,7 +7,12 @@ import os
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
+USE_GPU = device == "cuda"
+
 LOCAL_PATH = "~/.local/share/tts/tts_models/multilingual/multi-dataset/xtts_v2/"
+# LOCAL_PATH_DOCKER = "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2"
+LOCAL_PATH_DOCKER = "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2"
+
 
 # List available 🐸TTS models
 # print(TTS().list_models())
@@ -16,8 +21,18 @@ print(device)
 # Init TTS
 s = time.time()
 # tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-cache_dir = os.path.expanduser(LOCAL_PATH)
-tts = TTS(model_path=cache_dir)
+tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+# cache_dir = os.path.expanduser(LOCAL_PATH_DOCKER)
+if os.path.isdir(LOCAL_PATH_DOCKER):
+    print("Model file exists")
+else:
+    print("CANNOT FIND MODEL FILE")
+# tts = TTS(LOCAL_PATH_DOCKER)
+# tts = TTS(
+#     checkpoint_path="/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/model.pth",
+#     config_path="/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/config.json",
+#     gpu=USE_GPU
+# )
 e = time.time()
 size_in_bytes = sys.getsizeof(tts)
 print(f"Time to load model in memory: {e - s}")
