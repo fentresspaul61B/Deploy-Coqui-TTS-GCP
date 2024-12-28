@@ -3,7 +3,6 @@ from TTS.api import TTS
 import time
 import sys
 import os
-from decorators import log_data
 
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -51,7 +50,6 @@ print(f"TTS size in bytes: {size_in_bytes}")
 speaker_wav = "helpers/HO_03_female0_en.wav"
 
 
-@log_data
 def text_to_speech(
         text: str, 
         speaker_wav: str = speaker_wav,
