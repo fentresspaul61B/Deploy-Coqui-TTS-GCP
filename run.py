@@ -5,7 +5,7 @@ from helpers.decorators import log_data
 URL = "https://coqui-tts-gpu-901342520595.us-central1.run.app/synthesize"
 SECRETS = "secrets.json"
 LOCAL_AUDIO = "output.wav"
-TEST_TEXT = "Why did my inference speed slow down?"
+TEST_TEXT = "Very nice! It seems inference speed is fast again."
 
 
 def get_gcp_token():

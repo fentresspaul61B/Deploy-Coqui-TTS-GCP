@@ -5,28 +5,20 @@ import sys
 import os
 
 # Get device
-device = "cuda" if torch.cuda.is_available() else "cpu"
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+USE_GPU = DEVICE == "cuda"
+MODEL_NAME = "tts_models--multilingual--multi-dataset--xtts_v2"
+MODEL_NAME_DASHES = "tts_models/multilingual/multi-dataset/xtts_v2"
+MODEL_PATH = "/root/.local/share/tts"
+LOCAL_PATH_DOCKER = f"{MODEL_PATH}/{MODEL_NAME}"
+print(DEVICE)
 
-USE_GPU = device == "cuda"
-
-LOCAL_PATH = "~/.local/share/tts/tts_models/multilingual/multi-dataset/xtts_v2/"
-# LOCAL_PATH_DOCKER = "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2"
-LOCAL_PATH_DOCKER = "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2"
-
-
-# List available 🐸TTS models
-# print(TTS().list_models())
-print(device)
-
-# Init TTS
 s = time.time()
 if os.path.isdir(LOCAL_PATH_DOCKER):
     print("Model directory found, loading from local path.")
-    # tts = TTS(model_path=LOCAL_PATH_DOCKER).to(device)
-    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 else:
     print("Local model directory not found, downloading model at runtime.")
-    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+tts = TTS(MODEL_NAME_DASHES).to(DEVICE)
 
 e = time.time()
 size_in_bytes = sys.getsizeof(tts)
@@ -53,16 +45,6 @@ def text_to_speech(
     e = time.time()
     print(f"Time for inference: {e - s}")
     return file_path
-
-
-# Issue I am running into: Needs to load a new model for every inference,
-# but this is slow need to figure out how to only load model once?
-# https://coqui-tts.readthedocs.io/en/latest/models/xtts.html#id5
-
-# Lets just start with creating audio files, then move to streaming.
-
-# Maybe I should just store the data directly into the cloud, and return a
-# bucket address?
 
 
 def main():
