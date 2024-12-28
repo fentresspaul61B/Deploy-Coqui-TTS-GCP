@@ -49,6 +49,8 @@ def text_to_speech(
         file_path: str = "output.wav") -> str:
     """Takes in a string, generates an audio wav, returns wav filepath"""
     s = time.time()
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"My device is: {device}")
     model.tts_to_file(
         text=text,
         speaker_wav=speaker_wav,

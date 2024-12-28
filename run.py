@@ -5,7 +5,7 @@ from helpers.decorators import log_data
 URL = "https://coqui-tts-gpu-901342520595.us-central1.run.app/synthesize"
 SECRETS = "secrets.json"
 LOCAL_AUDIO = "output.wav"
-TEST_TEXT = "I prefer to make drip coffee, and just one cup."
+TEST_TEXT = "It seems the GPU is now slower or not working?"
 
 
 def get_gcp_token():
