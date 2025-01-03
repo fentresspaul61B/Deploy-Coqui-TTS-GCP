@@ -1,5 +1,27 @@
 # Deploy-Coqui-TTS-GCP
 
+In this repo, I deploy a Coqui TTS model using GCP cloud run with a GPU. 
+
+I ran an experiment where I ran both the Eleven Labs API, and the GCP + Coqui API 25 times to compare their response times. Each audio clip generated was approximately 2 seconds long, we generated 50 seconds of audio. 
+
+| Provider    | Plan    | Average API Response Time | Cost per Second | Total Seconds Run | Experiment Cost |
+|-------------|---------|---------------------------|-----------------|-------------------|-----------------|
+| GCP         | Default | 1.859040852              | 0.000233        | 46.47602129       | 0.01082891296   |
+| Eleven Labs | Starter | 1.86E+00                 | 2.77E-03        | 46.56243563       | 0.1289779467    |
+
+**GCP + Coqui TTS deployment is 170% cheaper than Eleven Labs; additionally, they have a nearly identical response API response time.**
+
+The main crux would be in the quality of the audio. One may argue that the with Eleven Labs, you are paying a premium price because of the quality of the audio generation; however, I found that the Coqui xtts_v2 TTS model, has extremely high quality which is comparable to Eleven Labs. 
+
+The question now, is the slight difference in quality + development time to build and maintain an API yourself worth the large cost decrease? 
+
+I would say in most cases this would be true. It was not incredibly complex to deploy Coqui xtts_v2 as an API on GCP cloud run. Also, GCP cloud run is already a managed service, so it handles much of the complexity when creating your own APIs related to security and scaling. 
+
+The cost of hosting Coqui on your own GPU or a less managed cloud platform would likely be even cheaper compared to the cost to run it on GCP, as the large cloud providers including GCP are not typically know for being "cheap" or "affordable". 
+
+With that being said, I had to scratch my head, and double check I was calculating things correctly, because the price of Eleven Labs could be considered "astronomical" 
+
+
 ## How to test/use the API
 1. Navigate to Postman and sign in: https://web.postman.co/home
 2. Go to "New API Request"
