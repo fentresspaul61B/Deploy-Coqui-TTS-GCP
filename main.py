@@ -1,10 +1,18 @@
 from helpers.tts import text_to_speech
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 import uvicorn
+import torch
 
 
 app = FastAPI()
+
+
+@app.post("/check-gpu/")
+async def check_gpu():
+    if not torch.cuda.is_available():
+        raise HTTPException(status_code=400, detail="CUDA is not available")
+    return {"cuda": True}
 
 
 @app.post("/synthesize")
