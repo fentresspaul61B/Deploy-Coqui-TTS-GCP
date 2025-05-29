@@ -52,7 +52,7 @@ ENV COQUI_TOS_AGREED=1
 # ──────────────────────────────────────────────────────────────
 # Python deps
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txts
+RUN pip install --no-cache-dir -r requirements.txt
 
 # ──────────────────────────────────────────────────────────────
 # ► STATIC FFMPEG ◄
