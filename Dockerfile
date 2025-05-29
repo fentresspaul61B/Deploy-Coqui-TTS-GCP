@@ -50,11 +50,6 @@ WORKDIR /app
 ENV COQUI_TOS_AGREED=1
 
 # ──────────────────────────────────────────────────────────────
-# Python deps
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# ──────────────────────────────────────────────────────────────
 # ► STATIC FFMPEG ◄
 # 1. Copy the exact tarball into the image
 #    (make sure the file sits next to your Dockerfile, or adjust the path)
@@ -67,11 +62,13 @@ RUN tar -xJf /tmp/ffmpeg-get-amd64-static.tar.xz -C /tmp && \
     rm -rf /tmp/ffmpeg-get-amd64-static.tar.xz /tmp/ffmpeg-*-static
 
 # ──────────────────────────────────────────────────────────────
+# Python deps
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ──────────────────────────────────────────────────────────────
 # Pre-download the TTS model (optional but keeps first request fast)
-RUN python - <<'PY'
-from TTS.api import TTS
-TTS('tts_models/multilingual/multi-dataset/xtts_v2')
-PY
+RUN python -c "from TTS.api import TTS; tts = TTS('tts_models/multilingual/multi-dataset/xtts_v2')"
 
 # ──────────────────────────────────────────────────────────────
 # App code
