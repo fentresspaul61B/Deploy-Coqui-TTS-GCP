@@ -67,6 +67,10 @@ RUN tar -xJf /tmp/ffmpeg-git-amd64-static.tar.xz -C /tmp && \
     chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
     rm -rf /tmp/ffmpeg-git-amd64-static.tar.xz /tmp/ffmpeg-*
 
+# ──────────────────────────────────────────────────────────────
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libsndfile1 && \
+    rm -rf /var/lib/apt/lists/*
 
 # ──────────────────────────────────────────────────────────────
 # Pre-download the TTS model (optional but keeps first request fast)
