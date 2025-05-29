@@ -56,10 +56,10 @@ ENV COQUI_TOS_AGREED=1
 COPY ffmpeg-git-amd64-static.tar.xz /tmp/
 
 # 2. Unpack, move the two binaries we need, and wipe the leftovers
-RUN tar -xJf /tmp/ffmpeg-get-amd64-static.tar.xz -C /tmp && \
+RUN tar -xJf /tmp/ffmpeg-git-amd64-static.tar.xz -C /tmp && \
     cp /tmp/ffmpeg-*-static/{ffmpeg,ffprobe} /usr/local/bin/ && \
     chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
-    rm -rf /tmp/ffmpeg-get-amd64-static.tar.xz /tmp/ffmpeg-*-static
+    rm -rf /tmp/ffmpeg-git-amd64-static.tar.xz /tmp/ffmpeg-*-static
 
 # ──────────────────────────────────────────────────────────────
 # Python deps
