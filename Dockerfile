@@ -19,12 +19,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 #     apt-get clean && \
 #     rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz \
-    | tar -xJ && \
-    cp ffmpeg-*-amd64-static/{ffmpeg,ffprobe} /usr/local/bin/ && \
-    chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
-    rm -rf ffmpeg-*-amd64-static
+# RUN curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz \
+#     | tar -xJ && \
+#     cp ffmpeg-*-amd64-static/{ffmpeg,ffprobe} /usr/local/bin/ && \
+#     chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe && \
+#     rm -rf ffmpeg-*-amd64-static
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ffmpeg=7:4.2.7-0ubuntu0.1 && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN python -c "from TTS.api import TTS; tts = TTS('tts_models/multilingual/multi-dataset/xtts_v2')"
 
