@@ -58,7 +58,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # ► STATIC FFMPEG ◄
 # 1. Copy the exact tarball into the image
 #    (make sure the file sits next to your Dockerfile, or adjust the path)
-COPY ffmpeg-get-amd64-static.tar.xz /tmp/
+COPY ffmpeg-git-amd64-static.tar.xz /tmp/
 
 # 2. Unpack, move the two binaries we need, and wipe the leftovers
 RUN tar -xJf /tmp/ffmpeg-get-amd64-static.tar.xz -C /tmp && \
