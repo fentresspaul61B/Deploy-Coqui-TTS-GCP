@@ -96,3 +96,7 @@ tts = TTS(MODEL_NAME_DASHES).to(DEVICE)
 ```
 
 What this does, is it checks if a model file exists and prints it out, then either if the modele exists or not, it uses the same TTS method. Whats important is to use the "to(DEVICE)" method as this connects the TTS module to access the GPU. I didnt do this, and it slowed down the inference time. Whats tricky about this too, is that the cuda will print out as available but it will not be accessed by the model.  
+
+# Errors?
+
+Now getting 500 error, want to redploy with no changes so if its just a build fail?
