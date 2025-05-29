@@ -99,4 +99,4 @@ What this does, is it checks if a model file exists and prints it out, then eith
 
 # Errors?
 
-Now getting 500 error, want to redploy with no changes so if its just a build fail?
+Now getting 500 error, want to re deploy with no changes so if its just a build fail?
